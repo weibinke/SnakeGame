@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant M as Main
+    participant G as Game
+    participant S as Snake
+    participant F as Food
+    M->>G: create game
+    G->>S: create snake
+    G->>F: create food
+    loop Game Loop
+        G->>S: move snake
+        S->>S: check collision
+        alt collision with food
+            S->>G: increase score
+            G->>F: spawn new food
+            G->>S: grow snake
+            G->>G: increase difficulty
+        else collision with self or wall
+            G->>G: end game
+        end
+        alt game paused
+            G->>G: pause game
+            G->>G: resume game
+        end
+    end
